@@ -128,7 +128,7 @@ export default function Home() {
           position: "relative",
         }}
       >
-        HMPI Portal
+        ECO SHEILD
       </h1>
 
       {/* Dashboard buttons */}
