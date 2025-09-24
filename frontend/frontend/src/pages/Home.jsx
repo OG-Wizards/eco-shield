@@ -128,7 +128,7 @@ export default function Home() {
           position: "relative",
         }}
       >
-        ECO SHEILD
+        HYDRO-STAT
       </h1>
 
       {/* Dashboard buttons */}
