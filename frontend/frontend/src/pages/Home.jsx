@@ -39,7 +39,7 @@ export default function Home() {
       description: "Predict future pollution trends with powerful AI-based forecasting models." 
     },
     { 
-      title: "Health Estimator", 
+      title: "Health Impact Estimator", 
       description: "Estimate potential health risks caused by contaminated water in your region." 
     },
     { 
@@ -155,7 +155,7 @@ export default function Home() {
           position: "relative",
         }}
       >
-        Eco Sheild
+        HMPI Tracker
       </h1>
 
       {/* Dashboard buttons */}
