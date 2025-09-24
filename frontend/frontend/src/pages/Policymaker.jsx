@@ -11,7 +11,7 @@ const demoSamples = [
   { id: 5, city: "Bangalore", latitude: 12.9716, longitude: 77.5946, hmpi: 32.4, hei_cd: 55, mpi: 35, pli: 25 },
 ];
 
-// Floating Chatbot + Alert component
+// Floating Chatbot
 function FloatingChatbot({ alerts }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -26,90 +26,127 @@ function FloatingChatbot({ alerts }) {
   };
 
   return (
-    <>
-      {/* Floating Chatbot Button */}
-      <div style={{ position: "fixed", bottom: "20px", right: "20px", zIndex: 1000 }}>
-        {open && (
-          <div
-            style={{
-              width: "300px",
-              height: "400px",
-              background: "#fff",
-              border: "1px solid #ccc",
-              borderRadius: "10px",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-              display: "flex",
-              flexDirection: "column",
-              overflow: "hidden",
-              marginBottom: "10px",
-            }}
-          >
-            <div style={{ background: "#2196F3", color: "#fff", padding: "8px", fontWeight: "bold" }}>
-              AI Chatbot
-            </div>
-            <div style={{ flex: 1, padding: "5px", overflowY: "auto" }}>
-              {messages.map((msg, idx) => (
-                <div key={idx} style={{ textAlign: msg.sender === "user" ? "right" : "left", margin: "3px 0" }}>
-                  <strong>{msg.sender === "user" ? "You: " : "AI: "}</strong> {msg.text}
-                </div>
-              ))}
-            </div>
-            <div style={{ padding: "5px", borderTop: "1px solid #ccc", display: "flex" }}>
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask something..."
-                style={{ flex: 1, padding: "5px", borderRadius: "5px", border: "1px solid #ccc" }}
-              />
-              <button onClick={handleSend} style={{ marginLeft: "5px", padding: "5px 10px" }}>Send</button>
-            </div>
-          </div>
-        )}
-        <button
-          onClick={() => setOpen(!open)}
+    <div style={{ position: "fixed", bottom: "20px", right: "20px", zIndex: 1000 }}>
+      {open && (
+        <div
           style={{
-            background: "#2196F3",
-            color: "#fff",
-            border: "none",
-            borderRadius: "50%",
-            width: "50px",
-            height: "50px",
-            fontSize: "24px",
-            cursor: "pointer",
+            width: "300px",
+            height: "400px",
+            background: "#fff",
+            border: "1px solid #ccc",
+            borderRadius: "10px",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+            display: "flex",
+            flexDirection: "column",
+            overflow: "hidden",
+            marginBottom: "10px",
           }}
         >
-          💬
-        </button>
-      </div>
-
-      {/* Alerts Section */}
-      <div
+          <div style={{ background: "#2196F3", color: "#fff", padding: "8px", fontWeight: "bold" }}>
+            AI Chatbot
+          </div>
+          <div style={{ flex: 1, padding: "5px", overflowY: "auto" }}>
+            {messages.map((msg, idx) => (
+              <div key={idx} style={{ textAlign: msg.sender === "user" ? "right" : "left", margin: "3px 0" }}>
+                <strong>{msg.sender === "user" ? "You: " : "AI: "}</strong> {msg.text}
+              </div>
+            ))}
+          </div>
+          <div style={{ padding: "5px", borderTop: "1px solid #ccc", display: "flex" }}>
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask something..."
+              style={{ flex: 1, padding: "5px", borderRadius: "5px", border: "1px solid #ccc" }}
+            />
+            <button onClick={handleSend} style={{ marginLeft: "5px", padding: "5px 10px" }}>Send</button>
+          </div>
+        </div>
+      )}
+      <button
+        onClick={() => setOpen(!open)}
         style={{
-          position: "fixed",
-          bottom: "20px",
-          right: "90px",
-          zIndex: 999,
-          width: "250px",
-          background: "#fff3cd",
-          border: "1px solid #ffeeba",
-          borderRadius: "8px",
-          padding: "10px",
-          boxShadow: "0 4px 8px rgba(0,0,0,0.15)",
+          background: "#2196F3",
+          color: "#fff",
+          border: "none",
+          borderRadius: "50%",
+          width: "50px",
+          height: "50px",
+          fontSize: "24px",
+          cursor: "pointer",
         }}
       >
-        <h4 style={{ margin: "0 0 5px 0", fontSize: "16px" }}>Alerts</h4>
-        <ul style={{ margin: 0, paddingLeft: "18px", fontSize: "14px" }}>
-          {alerts.map((alert, idx) => <li key={idx}>{alert}</li>)}
-        </ul>
-      </div>
-    </>
+        💬
+      </button>
+    </div>
+  );
+}
+
+// Floating Alerts (addon)
+function FloatingAlerts({ initialAlerts }) {
+  const [open, setOpen] = useState(false);
+  const [alerts, setAlerts] = useState(initialAlerts);
+  const [input, setInput] = useState("");
+
+  const handleAdd = () => {
+    if (!input.trim()) return;
+    setAlerts([...alerts, input]);
+    setInput("");
+  };
+
+  return (
+    <div style={{ position: "fixed", bottom: "20px", right: "90px", zIndex: 999 }}>
+      {open && (
+        <div
+          style={{
+            width: "250px",
+            background: "#fff3cd",
+            border: "1px solid #ffeeba",
+            borderRadius: "8px",
+            padding: "10px",
+            boxShadow: "0 4px 8px rgba(0,0,0,0.15)",
+            marginBottom: "10px",
+          }}
+        >
+          <h4 style={{ margin: "0 0 5px 0", fontSize: "16px" }}>Alerts</h4>
+          <ul style={{ margin: 0, paddingLeft: "18px", fontSize: "14px", maxHeight: "150px", overflowY: "auto" }}>
+            {alerts.map((alert, idx) => <li key={idx}>{alert}</li>)}
+          </ul>
+          <div style={{ display: "flex", marginTop: "5px" }}>
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Enter new alert..."
+              style={{ flex: 1, padding: "5px", borderRadius: "5px", border: "1px solid #ccc" }}
+            />
+            <button onClick={handleAdd} style={{ marginLeft: "5px", padding: "5px 8px" }}>Add</button>
+          </div>
+        </div>
+      )}
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          background: "#ff9800",
+          color: "#fff",
+          border: "none",
+          borderRadius: "50%",
+          width: "50px",
+          height: "50px",
+          fontSize: "20px",
+          cursor: "pointer",
+        }}
+      >
+        ⚠️
+      </button>
+    </div>
   );
 }
 
 export default function PolicymakerDashboard() {
   const [samples, setSamples] = useState([]);
-  const alerts = [
+  const demoAlerts = [
     "High HMPI alert in Delhi!",
     "Water scarcity warning in Chennai",
     "Moderate pollution in Bangalore",
@@ -173,7 +210,8 @@ export default function PolicymakerDashboard() {
       </div>
 
       {/* Floating Chatbot & Alerts */}
-      <FloatingChatbot alerts={alerts} />
+      <FloatingChatbot alerts={demoAlerts} />
+      <FloatingAlerts initialAlerts={demoAlerts} />
     </div>
   );
 }
