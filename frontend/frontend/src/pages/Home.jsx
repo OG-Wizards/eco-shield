@@ -13,12 +13,39 @@ export default function Home() {
     { name: "Researcher", path: "/researcher" },
   ];
 
-  const features = [
-    { title: "AI Chatbot", description: "Get instant insights with our intelligent AI assistant." },
-    { title: "Heatmap", description: "Visualize key trends and hotspots easily." },
-    { title: "Analysis", description: "Advanced data analytics for research and policymaking." },
-    { title: "Easy to Use", description: "Intuitive interface for quick access to dashboards." },
-    { title: "Charts of Results", description: "Visualize pollution index and other results with easy-to-read charts." },
+    const features = [
+    { 
+      title: "AI Chatbot", 
+      description: "Get instant insights with our intelligent AI assistant." 
+    },
+    { 
+      title: "Heatmap", 
+      description: "Visualize key trends and hotspots easily." 
+    },
+    { 
+      title: "Analysis", 
+      description: "Advanced data analytics for research and policymaking." 
+    },
+    { 
+      title: "Easy to Use", 
+      description: "Intuitive interface for quick access to dashboards." 
+    },
+    { 
+      title: "Charts of Results", 
+      description: "Visualize pollution index and other results with easy-to-read charts." 
+    },
+    { 
+      title: "AI Forecasting", 
+      description: "Predict future pollution trends with powerful AI-based forecasting models." 
+    },
+    { 
+      title: "Health Estimator", 
+      description: "Estimate potential health risks caused by contaminated water in your region." 
+    },
+    { 
+      title: "Spatial Interpolation", 
+      description: "Fill in missing data points and map hidden patterns using geospatial AI methods." 
+    },
   ];
 
   // Particle network effect
@@ -128,7 +155,7 @@ export default function Home() {
           position: "relative",
         }}
       >
-        HYDRO-STAT
+        Eco Sheild
       </h1>
 
       {/* Dashboard buttons */}
