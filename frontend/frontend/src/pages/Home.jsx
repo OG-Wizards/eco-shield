@@ -7,10 +7,11 @@ export default function Home() {
   const canvasRef = useRef(null);
 
   const dashboards = [
-    { name: "Citizen", path: "/citizen" },
-    { name: "Policymaker", path: "/policymaker" },
     { name: "Scientist", path: "/scientist" },
     { name: "Researcher", path: "/researcher" },
+    { name: "Policymaker", path: "/policymaker" },
+    { name: "Citizen", path: "/citizen" },
+    
   ];
 
     const features = [
