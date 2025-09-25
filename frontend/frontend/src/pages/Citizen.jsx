@@ -47,7 +47,13 @@ function FloatingChatbot({ alerts }) {
           </div>
           <div style={{ flex: 1, padding: "5px", overflowY: "auto" }}>
             {messages.map((msg, idx) => (
-              <div key={idx} style={{ textAlign: msg.sender === "user" ? "right" : "left", margin: "3px 0" }}>
+              <div
+                key={idx}
+                style={{
+                  textAlign: msg.sender === "user" ? "right" : "left",
+                  margin: "3px 0",
+                }}
+              >
                 <strong>{msg.sender === "user" ? "You: " : "AI: "}</strong> {msg.text}
               </div>
             ))}
@@ -58,9 +64,16 @@ function FloatingChatbot({ alerts }) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask something..."
-              style={{ flex: 1, padding: "5px", borderRadius: "5px", border: "1px solid #ccc" }}
+              style={{
+                flex: 1,
+                padding: "5px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
             />
-            <button onClick={handleSend} style={{ marginLeft: "5px", padding: "5px 10px" }}>Send</button>
+            <button onClick={handleSend} style={{ marginLeft: "5px", padding: "5px 10px" }}>
+              Send
+            </button>
           </div>
         </div>
       )}
@@ -102,7 +115,15 @@ function FloatingAlerts({ alerts }) {
           }}
         >
           <h4 style={{ margin: "0 0 5px 0", fontSize: "16px" }}>Alerts</h4>
-          <ul style={{ margin: 0, paddingLeft: "18px", fontSize: "14px", maxHeight: "150px", overflowY: "auto" }}>
+          <ul
+            style={{
+              margin: 0,
+              paddingLeft: "18px",
+              fontSize: "14px",
+              maxHeight: "150px",
+              overflowY: "auto",
+            }}
+          >
             {alerts.map((alert, idx) => (
               <li key={idx}>{alert}</li>
             ))}
@@ -154,34 +175,58 @@ export default function CitizenDashboard() {
       {/* Summary */}
       <div style={{ display: "flex", justifyContent: "space-around", marginBottom: "20px" }}>
         {["Safe", "Moderate", "Unsafe"].map((label, i) => (
-          <div key={i} style={{
-            flex: 1,
-            margin: "0 10px",
-            padding: "15px",
-            backgroundColor: "#f0f0f0",
-            borderRadius: "8px",
-            textAlign: "center",
-            boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-          }}>
-            <h4 style={{ margin: "0 0 10px 0", color: label==="Safe"?"green":label==="Moderate"?"orange":"red" }}>
+          <div
+            key={i}
+            style={{
+              flex: 1,
+              margin: "0 10px",
+              padding: "15px",
+              backgroundColor: "#f0f0f0",
+              borderRadius: "8px",
+              textAlign: "center",
+              boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+            }}
+          >
+            <h4
+              style={{
+                margin: "0 0 10px 0",
+                color: label === "Safe" ? "green" : label === "Moderate" ? "orange" : "red",
+              }}
+            >
               {label} Areas
             </h4>
             <p style={{ fontSize: "24px", fontWeight: "bold", margin: 0 }}>
-              {samples.filter(s => label==="Safe"?s.hmpi<30:label==="Moderate"?s.hmpi<60 && s.hmpi>=30:s.hmpi>=60).length}
+              {
+                samples.filter((s) =>
+                  label === "Safe"
+                    ? s.hmpi < 30
+                    : label === "Moderate"
+                    ? s.hmpi < 60 && s.hmpi >= 30
+                    : s.hmpi >= 60
+                ).length
+              }
             </p>
           </div>
         ))}
       </div>
 
       {/* Map */}
-      <MapContainer center={[20, 78]} zoom={5} style={{ height: "500px", width: "100%", marginBottom: "20px" }}>
+      <MapContainer
+        center={[20, 78]}
+        zoom={5}
+        style={{ height: "500px", width: "100%", marginBottom: "20px" }}
+      >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {samples.map((s) => (
           <Circle
             key={s.id}
             center={[s.latitude, s.longitude]}
             radius={50000}
-            pathOptions={{ color: getColor(s.hmpi), fillColor: getColor(s.hmpi), fillOpacity: 0.4 }}
+            pathOptions={{
+              color: getColor(s.hmpi),
+              fillColor: getColor(s.hmpi),
+              fillOpacity: 0.4,
+            }}
           />
         ))}
       </MapContainer>
@@ -192,16 +237,29 @@ export default function CitizenDashboard() {
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead style={{ backgroundColor: "#f0f0f0" }}>
             <tr>
-              {["City", "HMPI", "Status"].map((h) => <th key={h} style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>{h}</th>)}
+              {["City", "HMPI", "Status"].map((h) => (
+                <th key={h} style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>
+                  {h}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
             {samples.map((s) => (
               <tr key={s.id} style={{ textAlign: "center" }}>
                 <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>{s.city}</td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>{s.hmpi.toFixed(2)}</td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #eee", color: getColor(s.hmpi), fontWeight: "bold" }}>
-                  {s.hmpi<30?"Safe":s.hmpi<60?"Moderate":"Unsafe"}
+                <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>
+                  {s.hmpi.toFixed(2)}
+                </td>
+                <td
+                  style={{
+                    padding: "8px",
+                    borderBottom: "1px solid #eee",
+                    color: getColor(s.hmpi),
+                    fontWeight: "bold",
+                  }}
+                >
+                  {s.hmpi < 30 ? "Safe" : s.hmpi < 60 ? "Moderate" : "Unsafe"}
                 </td>
               </tr>
             ))}

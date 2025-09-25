@@ -47,7 +47,13 @@ function FloatingChatbot({ alerts }) {
           </div>
           <div style={{ flex: 1, padding: "5px", overflowY: "auto" }}>
             {messages.map((msg, idx) => (
-              <div key={idx} style={{ textAlign: msg.sender === "user" ? "right" : "left", margin: "3px 0" }}>
+              <div
+                key={idx}
+                style={{
+                  textAlign: msg.sender === "user" ? "right" : "left",
+                  margin: "3px 0",
+                }}
+              >
                 <strong>{msg.sender === "user" ? "You: " : "AI: "}</strong> {msg.text}
               </div>
             ))}
@@ -58,9 +64,16 @@ function FloatingChatbot({ alerts }) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask something..."
-              style={{ flex: 1, padding: "5px", borderRadius: "5px", border: "1px solid #ccc" }}
+              style={{
+                flex: 1,
+                padding: "5px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
             />
-            <button onClick={handleSend} style={{ marginLeft: "5px", padding: "5px 10px" }}>Send</button>
+            <button onClick={handleSend} style={{ marginLeft: "5px", padding: "5px 10px" }}>
+              Send
+            </button>
           </div>
         </div>
       )}
@@ -110,8 +123,18 @@ function FloatingAlerts({ initialAlerts }) {
           }}
         >
           <h4 style={{ margin: "0 0 5px 0", fontSize: "16px" }}>Alerts</h4>
-          <ul style={{ margin: 0, paddingLeft: "18px", fontSize: "14px", maxHeight: "150px", overflowY: "auto" }}>
-            {alerts.map((alert, idx) => <li key={idx}>{alert}</li>)}
+          <ul
+            style={{
+              margin: 0,
+              paddingLeft: "18px",
+              fontSize: "14px",
+              maxHeight: "150px",
+              overflowY: "auto",
+            }}
+          >
+            {alerts.map((alert, idx) => (
+              <li key={idx}>{alert}</li>
+            ))}
           </ul>
           <div style={{ display: "flex", marginTop: "5px" }}>
             <input
@@ -119,9 +142,16 @@ function FloatingAlerts({ initialAlerts }) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Enter new alert..."
-              style={{ flex: 1, padding: "5px", borderRadius: "5px", border: "1px solid #ccc" }}
+              style={{
+                flex: 1,
+                padding: "5px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
             />
-            <button onClick={handleAdd} style={{ marginLeft: "5px", padding: "5px 8px" }}>Add</button>
+            <button onClick={handleAdd} style={{ marginLeft: "5px", padding: "5px 8px" }}>
+              Add
+            </button>
           </div>
         </div>
       )}
@@ -167,14 +197,22 @@ export default function PolicymakerDashboard() {
       <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Policymaker Dashboard</h2>
 
       {/* Map */}
-      <MapContainer center={[20, 78]} zoom={5} style={{ height: "500px", width: "100%", marginBottom: "20px" }}>
+      <MapContainer
+        center={[20, 78]}
+        zoom={5}
+        style={{ height: "500px", width: "100%", marginBottom: "20px" }}
+      >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {samples.map((s) => (
           <Circle
             key={s.id}
             center={[s.latitude, s.longitude]}
             radius={50000}
-            pathOptions={{ color: getColor(s.hmpi), fillColor: getColor(s.hmpi), fillOpacity: 0.4 }}
+            pathOptions={{
+              color: getColor(s.hmpi),
+              fillColor: getColor(s.hmpi),
+              fillOpacity: 0.4,
+            }}
           />
         ))}
       </MapContainer>
@@ -185,23 +223,38 @@ export default function PolicymakerDashboard() {
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead style={{ backgroundColor: "#f0f0f0" }}>
             <tr>
-              {["City", "Latitude", "Longitude", "HMPI", "HEI-CD", "MPI", "PLI", "Status"].map((h) => (
-                <th key={h} style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>{h}</th>
-              ))}
+              {["City", "Latitude", "Longitude", "HMPI", "HEI-CD", "MPI", "PLI", "Status"].map(
+                (h) => (
+                  <th key={h} style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>
+                    {h}
+                  </th>
+                )
+              )}
             </tr>
           </thead>
           <tbody>
             {samples.map((s) => (
               <tr key={s.id} style={{ textAlign: "center" }}>
                 <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>{s.city}</td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>{s.latitude.toFixed(4)}</td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>{s.longitude.toFixed(4)}</td>
+                <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>
+                  {s.latitude.toFixed(4)}
+                </td>
+                <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>
+                  {s.longitude.toFixed(4)}
+                </td>
                 <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>{s.hmpi.toFixed(2)}</td>
                 <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>{s.hei_cd}</td>
                 <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>{s.mpi}</td>
                 <td style={{ padding: "8px", borderBottom: "1px solid #eee" }}>{s.pli}</td>
-                <td style={{ padding: "8px", borderBottom: "1px solid #eee", color: getColor(s.hmpi), fontWeight: "bold" }}>
-                  {s.hmpi<30?"Safe":s.hmpi<60?"Moderate":"Unsafe"}
+                <td
+                  style={{
+                    padding: "8px",
+                    borderBottom: "1px solid #eee",
+                    color: getColor(s.hmpi),
+                    fontWeight: "bold",
+                  }}
+                >
+                  {s.hmpi < 30 ? "Safe" : s.hmpi < 60 ? "Moderate" : "Unsafe"}
                 </td>
               </tr>
             ))}

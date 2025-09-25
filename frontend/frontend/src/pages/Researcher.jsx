@@ -9,6 +9,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import BackButton from "../components/BackButton"; // ✅ Import Back Button
 
 export default function ResearcherDashboard() {
   const [samples, setSamples] = useState([]);
@@ -45,6 +46,9 @@ export default function ResearcherDashboard() {
 
   return (
     <div style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
+      {/* ✅ Back to Home */}
+      <BackButton />
+
       <h2 style={{ textAlign: "center", marginBottom: "1rem", color: "#333" }}>
         Researcher Dashboard
       </h2>
